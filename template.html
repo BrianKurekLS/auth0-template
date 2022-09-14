@@ -1,0 +1,49 @@
+<!-- Ref for this template: https://auth0.com/docs/customize/universal-login-pages/universal-login-page-templates -->
+<!DOCTYPE html>
+<html>
+  <head>
+    {%- auth0:head -%}
+    <style>
+      {% if transaction.params.ext-logo %}
+        #custom-prompt-logo {
+          background-image: url('{{ transaction.params.ext-logo }}');
+        }
+      {% else %}
+        #custom-prompt-logo {
+          background-image: url('https://loanstreet-public.s3.amazonaws.com/loanstreet-logo.svg');
+        }
+      {% endif %}
+
+      .legal-document-links {
+        align-items: center;
+        color: #747574;
+        display: flex;
+        font-size: 11px;
+        justify-content: center;
+        position: absolute;
+        top: 95vh;
+        width: 100%;
+      }
+
+      .legal-document-links a {
+        font-size: 11px;
+        margin: 0 2px;
+      }
+    </style>
+  </head>
+  <body class="_widget-auto-layout _use-custom-prompt-logo">
+    {%- auth0:widget -%}
+    {% if prompt.name == "login" and transaction.params.ext-logo %}
+     <div class="legal-document-links">
+        By using this application, you agree to LStreet&apos;s 
+        <a href="https://4019390.fs1.hubspotusercontent-na1.net/hubfs/4019390/assets/docs/Borrower_Terms_of_Use_2022_09_09.pdf" target="_blank">
+          Terms of Use
+        </a>
+        and
+        <a href="https://4019390.fs1.hubspotusercontent-na1.net/hubfs/4019390/assets/docs/Borrower_LStreet_Privacy_Policy_2022_09_09.pdf" target="_blank">
+          Privacy Policy
+        </a>
+      </div>
+    {% endif %}
+  </body>
+</html>
